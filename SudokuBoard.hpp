@@ -1,3 +1,6 @@
+#ifndef SUDOKU_BOARD_HPP
+#define SUDOKU_BOARD_HPP
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -11,9 +14,14 @@ class SudokuBoard{
     public:
         SudokuBoard(); //default constructor
         SudokuBoard(vector<vector<int>>& v); //parametrized constructor
-        vector<vector<int>> getBoard(void);
+        const vector<vector<int>>& getBoard(void) const;
         void setBoard(vector<vector<int>> &board);
-        void EnterBoardValues(void);
-        void PrintBoard(void);
-        void ValidateConstraints(int &constraint);
+        void PrintBoard(void) const;
+        void ValidateConstraints(int &row, int& col, int& value);
+        void loadFile(string s);
+        SudokuBoard& operator=(const SudokuBoard& sb);
+
+
 };
+
+#endif
