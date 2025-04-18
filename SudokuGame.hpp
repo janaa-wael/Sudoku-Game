@@ -15,6 +15,7 @@ class SudokuGame{
 		int colChoice;
 		int inputCellValue;
 		string inputFile;
+		string outputFile;
 	public:
 		SudokuGame();
 		SudokuGame(SudokuBoard sudokuBoard);

@@ -19,6 +19,7 @@ class SudokuBoard{
         void PrintBoard(void) const;
         void ValidateConstraints(int &row, int& col, int& value);
         void loadFile(string s);
+        void savePuzzletoFile(string fileName);
         SudokuBoard& operator=(const SudokuBoard& sb);
 
 

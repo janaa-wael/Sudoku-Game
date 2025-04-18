@@ -17,9 +17,9 @@ SudokuBoard::SudokuBoard(vector<vector<int>>& v) //parametrized constructor
 
 
 const vector<vector<int>>& SudokuBoard::getBoard(void) const
-		{
+				{
 	return board;
-		}
+				}
 
 void SudokuBoard::setBoard(vector<vector<int>> &board)
 {
@@ -75,9 +75,9 @@ void SudokuBoard::ValidateConstraints(int &row, int &col, int& value)
 	}
 }
 
-void SudokuBoard::loadFile(string s)
+void SudokuBoard::loadFile(string fileName)
 {
-	ifstream file(s);
+	ifstream file(fileName);
 	if(!file)
 	{
 		cerr << "File doesn't exist!" << endl;
@@ -96,7 +96,38 @@ void SudokuBoard::loadFile(string s)
 		}
 	}
 	file.close();
+	cout << "File written successfully." << endl;
 }
+
+
+void SudokuBoard::savePuzzletoFile(string fileName)
+{
+	ofstream file(fileName);
+
+	if(!file)
+	{
+		cerr << "File doesn't exist!" << endl;
+		return;
+	}
+
+	int character;
+	for(int i = 0 ; i < constraint2; i++)
+	{
+		for(int j = 0; j < constraint2; j++)
+		{
+			character = board[i][j];
+			if(j%3==0) file << " | ";
+			file << character;
+			file << " ";
+		}
+		if(i && i%3==0) file << " |\n-------------------------------------\n";
+		else file << " |\n";
+	}
+	file.close();
+	cout << "File written successfully." << endl;
+}
+
+
 
 SudokuBoard& SudokuBoard::operator=(const SudokuBoard& sb)
 {

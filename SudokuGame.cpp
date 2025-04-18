@@ -57,6 +57,11 @@ void SudokuGame::gameLoop(void)
 			cin >> inputFile;
 			sudokuBoard.loadFile(inputFile);
 			break;
+		case 4:
+			cout << "Enter File Name" << endl;
+			cin >> outputFile;
+			sudokuBoard.savePuzzletoFile(outputFile);
+			break;
 		case 5:
 			break;
 		default:

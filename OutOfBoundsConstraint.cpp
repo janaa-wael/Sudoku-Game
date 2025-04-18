@@ -5,5 +5,5 @@
 using namespace std;
 const char* OutOfBoundsConstraint::what() const noexcept
 {
-    return "Invalid number, Out Of Bounds Contraint!\n";
+    return "Out Of Bounds Contraint!\n";
 }  
