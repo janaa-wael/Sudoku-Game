@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SudokuGame.hpp"
 #include "SudokuBoard.hpp"
+#include "SudokuSolver.hpp"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ void SudokuGame::gameLoop(void)
 {
 	while(1)
 	{
+		SudokuSolver s(sudokuBoard);
 		sudokuBoard.PrintBoard();
 		printMenu();
 		getUserMenuInput();
@@ -47,9 +49,15 @@ void SudokuGame::gameLoop(void)
 		case 1:
 			getUserBoardInput();
 			sudokuBoard.ValidateConstraints(rowChoice, colChoice, inputCellValue);
+
+			if(sudokuBoard.validateMove(rowChoice-1, colChoice-1, inputCellValue)) sudokuBoard.setCellValue(rowChoice-1, colChoice-1, inputCellValue);
+			else cout << "Invalid move." << endl;
 			break;
 		case 2:
 			//solve puzzle automatically
+
+			s.solve();
+			printMenu();
 			break;
 		case 3:
 			//load puzzle from file

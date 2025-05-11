@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include <fstream>
 #include "OutOfBoundsConstraint.hpp"
 #include "SudokuBoard.hpp"
@@ -15,11 +16,16 @@ SudokuBoard::SudokuBoard(vector<vector<int>>& v) //parametrized constructor
 
 }
 
-
+void SudokuBoard::setCellValue(int r, int c, int val)
+{
+	board[r][c] = val;
+}
 const vector<vector<int>>& SudokuBoard::getBoard(void) const
-				{
+{
 	return board;
-				}
+}
+
+
 
 void SudokuBoard::setBoard(vector<vector<int>> &board)
 {
@@ -38,7 +44,7 @@ void SudokuBoard::PrintBoard(void) const
 		cout << endl;
 	}
 }
-void SudokuBoard::ValidateConstraints(int &row, int &col, int& value)
+void SudokuBoard::ValidateConstraints(int row, int col, int value)
 {
 	if(row > constraint2 || row < constraint1)
 	{
@@ -128,6 +134,65 @@ void SudokuBoard::savePuzzletoFile(string fileName)
 }
 
 
+bool SudokuBoard::checkRow(int& row, int& value)
+{
+
+	for(const auto& c : board[row])
+	{
+		if(c == value)
+		{
+			cout << "Element exists in the same row" << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+
+bool SudokuBoard::checkColumn(int& col, int& value)
+{
+	for(int i=0 ; i<constraint2; i++)
+	{
+		if(value == board[i][col])
+		{
+			cout << "Element exists in the same column" << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+void SudokuBoard::printBox(int&r, int& c)
+{
+	for(int i = r-1; i < r+2 ; i++)
+	{
+		for(int j = c; j < c+3; j++)
+		{
+			cout << board[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+
+bool SudokuBoard::checkBox(int& row, int& col, int& value) {
+	int boxStartRow = (row / 3) * 3;  // 0, 3, or 6
+	int boxStartCol = (col / 3) * 3;  // 0, 3, or 6
+
+	for(int i = boxStartRow; i < boxStartRow + 3; i++) {
+		for(int j = boxStartCol; j < boxStartCol + 3; j++) {
+			if(value == board[i][j]) {
+				cout << "Element exists in the same box" << endl;
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool SudokuBoard::validateMove(int r, int c, int val)
+{
+	return checkBox(r,c,val) && checkRow(r,val) && checkColumn(c,val);
+}
 
 SudokuBoard& SudokuBoard::operator=(const SudokuBoard& sb)
 {
